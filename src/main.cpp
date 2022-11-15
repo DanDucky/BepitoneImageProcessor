@@ -4,9 +4,18 @@
 #include <cstring>
 #include <sys/stat.h>
 #include <opencv2/imgcodecs.hpp>
+#include <filesystem>
 
 using namespace std;
 using namespace cv;
+
+static string folderName(string oldName) {
+	oldName = oldName.substr(0, oldName.find_last_of('.'));
+	if (oldName.find('/') != std::string::npos) {
+		oldName = oldName.substr(oldName.find_last_of('/') + 1, oldName.length());
+	}
+	return oldName;
+}
 
 int main () {
 	cout << "Welcome to bepitone list gumper\n";
@@ -21,10 +30,9 @@ int main () {
 	}
 	int printWidth = stoi(printWidthStr);
     Mat src = imread(filePath, IMREAD_COLOR);
-    string outFolder = "out";
-	if (mkdir(outFolder.c_str(), 0777) == -1) {
-	    cout << "Borken\n";
-	}
+    string outFolder = folderName(filePath) + "_out";
+    filesystem::remove_all(outFolder);
+	mkdir(outFolder.c_str(), 0777);
 	static short direction = 1;
 	static unsigned int blockCount = 0;
 	static int foundInLineCount = 0;
@@ -45,9 +53,12 @@ int main () {
 					blockCount++;
 				}
 			}
+			cout << ".";
+			if (foundInLineCount > 0) log << "\n";
 			foundInLineCount = 0;
-			log << "\n";
 		}
+		cout << i;
+		cout << (i/src.cols)*100 << "%\n";
 		direction = direction * -1;
 		ii+=direction;
 		log.close();
