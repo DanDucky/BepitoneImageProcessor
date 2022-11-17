@@ -35,6 +35,7 @@ int main () {
 	mkdir(outFolder.c_str(), 0777);
 	static short direction = 1;
 	static unsigned int blockCount = 0;
+	static float percent = 0.0;
 	static int foundInLineCount = 0;
 	int ii = 0;
 	int fileCount = 0;
@@ -57,8 +58,8 @@ int main () {
 			if (foundInLineCount > 0) log << "\n";
 			foundInLineCount = 0;
 		}
-		cout << i;
-		cout << (i/src.cols)*100 << "%\n";
+		percent = static_cast<float>(i)/static_cast<float>(src.cols);
+		cout << percent*100 << "%\n";
 		direction = direction * -1;
 		ii+=direction;
 		log.close();
