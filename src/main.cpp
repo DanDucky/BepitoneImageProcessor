@@ -42,6 +42,7 @@ int main () {
 	for (int i = 0; i < src.cols; i+=printWidth) {
 		ofstream log;
 		log.open(outFolder + "/" + to_string(fileCount));
+		log << to_string(fileCount) << "\n";
 		for (; ii < src.rows && ii >= 0; ii+=direction) {
 			for (int iii = i; iii < i + printWidth && iii < src.cols; iii++) {
 				Vec3b color = src.at<Vec3b>(Point(iii,ii));
