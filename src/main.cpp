@@ -22,11 +22,11 @@ int main () {
     string filePath = "";
 	cout << "Please input the path of the file you would like to bep: ";
 	getline(cin, filePath);
-	cout << "Input width of prints [3] ";
+	cout << "Input width of prints [5] ";
 	string printWidthStr;
 	getline(cin, printWidthStr);
 	if (printWidthStr == "") {
-		printWidthStr = "3";
+		printWidthStr = "5";
 	}
 	int printWidth = stoi(printWidthStr);
     Mat src = imread(filePath, IMREAD_COLOR);
